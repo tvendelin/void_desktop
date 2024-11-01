@@ -15,19 +15,24 @@
 
 - name: 'install packages'
   xbps:
-    upgrade: yes
-    name:
-      - rxvt-unicode urxvt-perls
-      - xorg alsa-utils
-      - base-devel
-      - libX11-devel
-      - libXft-devel
-      - libXinerama-devel
-      - google-fonts-ttf
-      - xkblayout-state
+    state: latest
+    name: '{{item}}'
+  loop:
+    - rxvt-unicode
+    - urxvt-perls
+    - unzip
+    - xorg
+    - alsa-utils
+    - base-devel
+    - libX11-devel
+    - libXft-devel
+    - libXinerama-devel
+    #  - google-fonts-ttf
+    - xkblayout-state
 
 - name: 'install davinci dependencies'
   xbps:
+    state: latest
     upgrade: yes
     name:
       - nvidia
@@ -54,9 +59,17 @@
   loop: '{{ suckless_software }}'
   become_user: void
 
+- name: 'Find tars'
+  find:
+    path: '~/suckless'
+    patterns: '*.tar.gz'
+  register: tars
+  become_user: void
+
 - name: 'Unpack suckless'
   unarchive:
-    src: '{{ item }}'
-    dest: './'
-  loop: "{{ q('fileglob', '~/suckless/*') }}"
+    src: "{{item['path']}}"
+    remote_src: yes
+    dest: '~/suckless/'
+  loop: "{{tars['files']}}"
   become_user: void

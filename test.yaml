@@ -4,6 +4,7 @@
   become: true
   become_user: root
   become_method: sudo
+  gather_facts: no
   #become_method: su
   roles:
     - base
