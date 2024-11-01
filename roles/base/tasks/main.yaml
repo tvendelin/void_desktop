@@ -1,0 +1,62 @@
+---
+- name: 'xbps upgrade'
+  xbps: name=xbps upgrade=yes
+
+- name: 'xbps extra repos'
+  xbps:
+    upgrade: yes
+    name:
+      - void-repo-nonfree
+      - xtools
+
+- name: 'xbps upgrade'
+  xbps:
+    upgrade: yes
+
+- name: 'install packages'
+  xbps:
+    upgrade: yes
+    name:
+      - rxvt-unicode urxvt-perls
+      - xorg alsa-utils
+      - base-devel
+      - libX11-devel
+      - libXft-devel
+      - libXinerama-devel
+      - google-fonts-ttf
+      - xkblayout-state
+
+- name: 'install davinci dependencies'
+  xbps:
+    upgrade: yes
+    name:
+      - nvidia
+      - nvidia-opencl
+      - libopencv
+      - xcb-util
+      - xcb-util-wm
+      - xcb-util-image
+      - xcb-util-keysyms
+      - xcb-util-renderutil
+      - libxkbcommon-x11
+      - glu
+
+- name: 'Suckless dir'
+  file:
+    path: '~/suckless'
+    state: directory
+  become_user: void
+
+- name: 'download suckless things'
+  get_url:
+    url: '{{item}}'
+    dest: '~/suckless/'
+  loop: '{{ suckless_software }}'
+  become_user: void
+
+- name: 'Unpack suckless'
+  unarchive:
+    src: '{{ item }}'
+    dest: './'
+  loop: "{{ q('fileglob', '~/suckless/*') }}"
+  become_user: void
