@@ -1,0 +1,21 @@
+---
+- name: 'clone dotfiles'
+  git:
+    repo: "{{dotfiles_git}}"
+    dest: "dotfiles"
+    clone: yes
+
+- name: 'Copy dotfiles'
+  copy:
+    remote_src: true
+    src: "dotfiles/{{item}}"
+    dest: "{{lookup('env', 'HOME')}}/{{item}}"
+  loop:
+    - .bashrc
+    - .gitconfig
+    - .gitconfig-user
+    - .gitignore-global
+    - .vimrc
+    - .Xresources
+    - .config
+    - .xinitrc

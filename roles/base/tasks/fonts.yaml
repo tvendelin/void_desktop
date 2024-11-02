@@ -1,0 +1,33 @@
+---
+- name: 'Download Meslo Nerd Font'
+  get_url:
+    url: 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip'
+    dest: "{{lookup('env', 'HOME')}}/"
+
+- name: 'Unpack Meslo Nerd Font'
+  unarchive:
+    remote_src: true
+    src: "{{lookup('env', 'HOME')}}/Meslo.zip"
+    dest: "{{lookup('env', 'HOME')}}/.fonts/"
+
+- name: 'Install Meslo Nerd Font'
+  command:
+    argv:
+      - fc-cache
+      - "-f"
+      - "-v"
+
+- name: 'Install google fonts'
+  xbps:
+    name: 'google-fonts-ttf'
+    state: latest
+  tags:
+    - optional
+
+- name: 'Install nerd fonts'
+  xbps:
+    name: 'nerd-fonts'
+    state: latest
+  tags:
+    - optional
+

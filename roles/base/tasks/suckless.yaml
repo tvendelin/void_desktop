@@ -1,0 +1,71 @@
+---
+
+- name: 'download suckless things'
+  get_url:
+    url: "{{item['url']}}/{{item['name']}}-{{item['version']}}.tar.gz"
+    dest: '/tmp/tars/'
+  loop: '{{ suckless_software }}'
+
+- name: 'Unpack suckless'
+  unarchive:
+    src: "/tmp/tars/{{item['name']}}-{{item['version']}}.tar.gz"
+    remote_src: yes
+    dest: '{{suckless_build_root}}'
+  loop: '{{suckless_software}}'
+
+- name: 'Find config.h'
+  find:
+    path: '{{suckless_build_root}}'
+    patterns:
+    - 'config.h'
+    recurse: yes
+  register: s_config
+
+- debug: msg="{{s_config}}"
+- name: 'Remove config.h from sucless dirs'
+  file:
+    path: "{{item['path']}}"
+    state: absent
+  loop: "{{s_config['files']}}"
+
+- name: 'Copy patch dir'
+  copy:
+    src: patches
+    dest: "{{suckless_build_root}}/"
+
+- name: 'Register patches'
+  find:
+    path: "{{suckless_build_root}}/patches"
+    patterns:
+      - "*.diff"
+  register: patches
+
+- name: 'patch suckless'
+  debug:
+    msg: "{{item['path']}} -- {{suckless_build_root}}/{{item['path'] | basename | replace('.diff', '')}}"
+  loop: "{{patches['files']}}"
+
+- name: 'patch suckless'
+  shell:
+    cmd: "patch < {{item['path'] | quote}}"
+    chdir: "{{suckless_build_root}}/{{item['path'] | basename | replace('.diff', '')}}"
+  loop: "{{patches['files']}}"
+
+- name: 'Make clean'
+  make:
+    target: clean
+    chdir: "{{suckless_build_root}}/{{item['name']}}-{{item['version']}}"
+  loop: '{{suckless_software}}'
+
+- name: 'Make all'
+  make:
+    target: all
+    chdir: "{{suckless_build_root}}/{{item['name']}}-{{item['version']}}"
+  loop: '{{suckless_software}}'
+
+- name: 'Make install'
+  make:
+    target: install
+    chdir: "{{suckless_build_root}}/{{item['name']}}-{{item['version']}}"
+  loop: '{{suckless_software}}'
+  become: true
