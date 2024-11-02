@@ -21,6 +21,11 @@
     state: latest
     name: '{{item}}'
   loop:
+    - psmisc
+    - fzf
+    - fd
+    - feh
+    - cups
     - curl
     - git
     - rxvt-unicode
@@ -55,16 +60,11 @@
 - name: 'Make dirs'
   file:
     path: "{{lookup('env', 'HOME')}}/{{item}}"
-    state: directory
+    state: 'directory'
   loop:
     - 'suckless'
     - '.fonts'
 
-- include_tasks:
-  file: suckless.yaml
-
-- include_tasks:
-  file: dotfiles.yaml
-
-- include_tasks:
-  file: fonts.yaml
+- import_tasks: suckless.yaml
+- import_tasks: dotfiles.yaml
+- import_tasks: fonts.yaml

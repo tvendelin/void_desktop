@@ -23,6 +23,7 @@
     state: latest
   tags:
     - optional
+    - never
 
 - name: 'Install nerd fonts'
   xbps:
@@ -30,4 +31,4 @@
     state: latest
   tags:
     - optional
-
+    - never

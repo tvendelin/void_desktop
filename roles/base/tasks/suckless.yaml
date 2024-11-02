@@ -1,14 +1,21 @@
 ---
+- name: 'Make dirs'
+  file:
+    path: "{{lookup('env', 'HOME')}}/{{item}}"
+    state: directory
+  loop:
+    - suckless
+    - tars
 
 - name: 'download suckless things'
   get_url:
     url: "{{item['url']}}/{{item['name']}}-{{item['version']}}.tar.gz"
-    dest: '/tmp/tars/'
+    dest:  "{{lookup('env', 'HOME')}}/tars/"
   loop: '{{ suckless_software }}'
 
 - name: 'Unpack suckless'
   unarchive:
-    src: "/tmp/tars/{{item['name']}}-{{item['version']}}.tar.gz"
+    src: "{{lookup('env', 'HOME')}}/tars/{{item['name']}}-{{item['version']}}.tar.gz"
     remote_src: yes
     dest: '{{suckless_build_root}}'
   loop: '{{suckless_software}}'
@@ -21,7 +28,8 @@
     recurse: yes
   register: s_config
 
-- debug: msg="{{s_config}}"
+- debug: msg="{{s_config}}" verbosity=1
+
 - name: 'Remove config.h from sucless dirs'
   file:
     path: "{{item['path']}}"
