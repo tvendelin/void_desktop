@@ -1,0 +1,13 @@
+---
+- name: 'Key bindings'
+  file:
+    src: "{{item['src']}}"
+    path: "{{item['path']}}"
+    state: link
+  become: true
+  loop:
+    - { src: "/usr/share/fzf/completion.bash", path: "/etc/bash/bashrc.d/fzf_completion.sh" }
+    - { src: "/usr/share/fzf/completion.bash", path: "/etc/profile.d/fzf_completion.sh" }
+    - { src: "/usr/share/fzf/key-bindings.bash", path: "/etc/bash/bashrc.d/fzf_keybindings.sh" }
+    - { src: "/usr/share/fzf/key-bindings.bash", path: "/etc/profile.d/fzf_keybindings.sh" }
+    - { src: "/usr/share/git/git-prompt.sh", path: "/etc/bashrc.d/" }

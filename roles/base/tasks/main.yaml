@@ -68,3 +68,56 @@
 - import_tasks: suckless.yaml
 - import_tasks: dotfiles.yaml
 - import_tasks: fonts.yaml
+- import_tasks: key_bindings.yaml
+
+- name: 'install personal'
+  xbps:
+    state: latest
+    name: '{{item}}'
+  loop:
+    - 'fuse3'
+    - 'hplip-gui'
+    - 'simple-mtpfs'
+    - 'gparted'
+    - 'android-file-transfer-linux'
+    - 'gphoto2'
+    - 'v4l2loopback'
+    - 'screenkey'
+    - 'ffmpeg'
+    - 'audacity'
+    - 'kodi'
+    - 'mpv'
+    - 'virtualbox-ose'
+    - 'transmission'
+    - 'firefox'
+  become: true
+
+- name: 'X11 conf dir'
+  file:
+    path: '/etc/X11/xorg.conf.d'
+    state: directory
+    recurse: yes
+
+- name: 'DAS keyboard config'
+  copy:
+    src: 'keyboard.conf'
+    dest: '/etc/X11/xorg.conf.d/30-keyboard.conf'
+  become: true
+
+- name: 'udev rules'
+  copy:
+    src: 'udev.rules'
+    dest: '/usr/lib/udev/rules.d/98-my_devices.rules'
+
+- name: 'camera script'
+  copy:
+    src: 'camera.sh'
+    dest: '/usr/local/bin/camera'
+    mode: 0755
+    owner: root
+    group: root
+
+- name: 'Alsa default config'
+  copy:
+    src: 'asound.conf'
+    dest: '/etc/asound.conf'
