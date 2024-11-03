@@ -21,6 +21,7 @@
     state: latest
     name: '{{item}}'
   loop:
+    - tree
     - psmisc
     - fzf
     - fd
