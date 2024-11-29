@@ -5,7 +5,6 @@
 
 - name: 'xbps extra repos'
   xbps:
-    upgrade: yes
     name:
       - void-repo-nonfree
       - xtools
@@ -16,7 +15,7 @@
     upgrade: yes
   become: true
 
-- name: 'install packages'
+- name: 'Install CLI utils'
   xbps:
     state: latest
     name: '{{item}}'
@@ -26,37 +25,80 @@
     - psmisc
     - fzf
     - fd
-    - feh
-    - cups
     - curl
     - git
     - rxvt-unicode
     - urxvt-perls
     - unzip
+    - base-devel
+    - cups
+
+- name: 'Install X'
+  xbps:
+    state: latest
+    name: '{{item}}'
+  loop:
     - xorg
     - alsa-utils
-    - base-devel
     - libX11-devel
     - libXft-devel
     - libXinerama-devel
     - xkblayout-state
   become: true
+  tags:
+    - desktop
+    - X
+
+- name: 'Install Nvidia drivers'
+  xbps:
+    state: latest
+    name: '{{item}}'
+  loop:
+    - nvidia
+    - nvidia-opencl
+  become: true
+  tags:
+    - nvidia
 
 - name: 'install davinci dependencies'
   xbps:
     state: latest
     upgrade: yes
     name:
-      - nvidia
-      - nvidia-opencl
-      - libopencv
-      - xcb-util
-      - xcb-util-wm
-      - xcb-util-image
-      - xcb-util-keysyms
-      - xcb-util-renderutil
-      - libxkbcommon-x11
-      - glu
+  loop:
+    - libopencv
+    - xcb-util
+    - xcb-util-wm
+    - xcb-util-image
+    - xcb-util-keysyms
+    - xcb-util-renderutil
+    - libxkbcommon-x11
+    - glu
+  become: true
+  tags:
+    - davinci
+
+- name: 'install personal'
+  xbps:
+    state: latest
+    name: '{{item}}'
+  loop:
+    - feh
+    - 'mpv'
+    - 'fuse3'
+    - 'hplip-gui'
+    - 'simple-mtpfs'
+    - 'gparted'
+    - 'android-file-transfer-linux'
+    - 'gphoto2'
+    - 'v4l2loopback'
+    - 'screenkey'
+    - 'ffmpeg'
+    - 'audacity'
+    - 'kodi'
+    - 'virtualbox-ose'
+    - 'transmission'
+    - 'firefox'
   become: true
 
 - name: 'Make dirs'
@@ -71,28 +113,6 @@
 - import_tasks: dotfiles.yaml
 - import_tasks: fonts.yaml
 - import_tasks: key_bindings.yaml
-
-- name: 'install personal'
-  xbps:
-    state: latest
-    name: '{{item}}'
-  loop:
-    - 'fuse3'
-    - 'hplip-gui'
-    - 'simple-mtpfs'
-    - 'gparted'
-    - 'android-file-transfer-linux'
-    - 'gphoto2'
-    - 'v4l2loopback'
-    - 'screenkey'
-    - 'ffmpeg'
-    - 'audacity'
-    - 'kodi'
-    - 'mpv'
-    - 'virtualbox-ose'
-    - 'transmission'
-    - 'firefox'
-  become: true
 
 - name: 'X11 conf dir'
   file:

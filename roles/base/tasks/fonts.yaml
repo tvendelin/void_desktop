@@ -3,12 +3,16 @@
   get_url:
     url: 'https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/Meslo.zip'
     dest: "{{lookup('env', 'HOME')}}/"
+  tags:
+    - desktop
 
 - name: 'Unpack Meslo Nerd Font'
   unarchive:
     remote_src: true
     src: "{{lookup('env', 'HOME')}}/Meslo.zip"
     dest: "{{lookup('env', 'HOME')}}/.fonts/"
+  tags:
+    - desktop
 
 - name: 'Install Meslo Nerd Font'
   command:
@@ -16,12 +20,15 @@
       - fc-cache
       - "-f"
       - "-v"
+  tags:
+    - desktop
 
 - name: 'Install google fonts'
   xbps:
     name: 'google-fonts-ttf'
     state: latest
   tags:
+    - desktop
     - optional
     - never
 
@@ -30,5 +37,6 @@
     name: 'nerd-fonts'
     state: latest
   tags:
+    - desktop
     - optional
     - never
