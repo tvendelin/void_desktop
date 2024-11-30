@@ -1,21 +1,21 @@
 ---
 - name: 'Make dirs'
   file:
-    path: "{{lookup('env', 'HOME')}}/{{item}}"
+    path: "{{item}}"
     state: directory
   loop:
-    - suckless
-    - tars
+    - '{{suckless_build_root}}'
+    - '{{tars_dir}}'
 
 - name: 'download suckless things'
   get_url:
     url: "{{item['url']}}/{{item['name']}}-{{item['version']}}.tar.gz"
-    dest:  "{{lookup('env', 'HOME')}}/tars/"
+    dest: "{{tars_dir}}"
   loop: '{{ suckless_software }}'
 
 - name: 'Unpack suckless'
   unarchive:
-    src: "{{lookup('env', 'HOME')}}/tars/{{item['name']}}-{{item['version']}}.tar.gz"
+    src: "{{tars_dir}}/{{item['name']}}-{{item['version']}}.tar.gz"
     remote_src: yes
     dest: '{{suckless_build_root}}'
   loop: '{{suckless_software}}'

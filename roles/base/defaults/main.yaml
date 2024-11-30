@@ -1,4 +1,6 @@
-suckless_build_root: '/home/void/suckless'
+dotfiles_git: 'https://github.com/tvendelin/dotfiles.git'
+suckless_build_root: /tmp/suckless
+tars_dir: /tmp/tars
 suckless_software:
   - name: 'slstatus'
     version: '1.0'
