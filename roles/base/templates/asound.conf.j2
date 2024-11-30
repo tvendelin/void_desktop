@@ -1,5 +1,5 @@
 # You likely will need to edit this
 # cat /proc/asound/modules
 # See https://docs.voidlinux.org/config/media/alsa.html
-defaults.ctl.card 0;
-defaults.pcm.card 0;
+defaults.ctl.card {{asound["ctl_card"]}};
+defaults.pcm.card {{asound["pcm_card"]}};

@@ -140,6 +140,13 @@
     group: root
 
 - name: 'Alsa default config'
-  copy:
-    src: 'asound.conf'
+  template:
+    src: 'asound.conf.j2'
     dest: '/etc/asound.conf'
+
+- name: 'Enable asound/alsa'
+  file:
+    src: '/etc/sv/alsa'
+    path: '/var/service'
+    state: link
+

@@ -1,6 +1,15 @@
+# ALSA (sound). You likely will need to edit this
+# cat /proc/asound/modules
+# See https://docs.voidlinux.org/config/media/alsa.html
+asound: 
+  ctl_card: 1
+  pcm_card: 1
+
 dotfiles_git: 'https://github.com/tvendelin/dotfiles.git'
-suckless_build_root: /tmp/suckless
+
 tars_dir: /tmp/tars
+
+suckless_build_root: /tmp/suckless
 suckless_software:
   - name: 'slstatus'
     version: '1.0'
@@ -17,3 +26,4 @@ suckless_software:
   - name: dwm
     version: '6.5'
     url: "https://dl.suckless.org/dwm"
+

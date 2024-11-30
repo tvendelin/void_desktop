@@ -10,3 +10,33 @@
     - base
   tags: 
     - untagged
+  vars:
+    # ALSA (sound). You likely will need to edit this
+    # cat /proc/asound/modules
+    # See https://docs.voidlinux.org/config/media/alsa.html
+    asound: 
+      ctl_card: 1
+      pcm_card: 1
+
+    dotfiles_git: 'https://github.com/tvendelin/dotfiles.git'
+
+    tars_dir: /tmp/tars
+
+    suckless_build_root: /tmp/suckless
+    suckless_software:
+      - name: 'slstatus'
+        version: '1.0'
+        url: "https://dl.suckless.org/tools"
+
+      - name: dmenu
+        version: '5.3'
+        url: "https://dl.suckless.org/tools"
+
+      - name: st
+        version: '0.9.2'
+        url: "https://dl.suckless.org/st"
+
+      - name: dwm
+        version: '6.5'
+        url: "https://dl.suckless.org/dwm"
+
