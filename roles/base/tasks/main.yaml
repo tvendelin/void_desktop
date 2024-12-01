@@ -59,6 +59,7 @@
   become: true
   tags:
     - nvidia
+    - never
 
 - name: 'install davinci dependencies'
   xbps:
@@ -67,16 +68,17 @@
     name: '{{item}}'
   loop:
     - glu
-    - libopencv
-    - xcb-util
-    - xcb-util-wm
-    - xcb-util-image
-    - xcb-util-keysyms
-    - xcb-util-renderutil
-    - libxkbcommon-x11
+    #    - libopencv
+    #    - xcb-util
+    #    - xcb-util-wm
+    #    - xcb-util-image
+    #    - xcb-util-keysyms
+    #    - xcb-util-renderutil
+    #    - libxkbcommon-x11
   become: true
   tags:
     - davinci
+    - never
 
 - name: 'install personal'
   xbps:

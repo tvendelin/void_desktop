@@ -2,13 +2,13 @@
 - name: 'clone dotfiles'
   git:
     repo: "{{dotfiles_git}}"
-    dest: "dotfiles"
+    dest: "{{lookup('env', 'HOME')}}/dotfiles"
     clone: yes
 
 - name: 'Copy dotfiles'
   copy:
     remote_src: true
-    src: "dotfiles/{{item}}"
+    src: "{{lookup('env', 'HOME')}}/dotfiles/{{item}}"
     dest: "{{lookup('env', 'HOME')}}/{{item}}"
   loop:
     - .bashrc
