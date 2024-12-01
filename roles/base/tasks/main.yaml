@@ -41,6 +41,7 @@
     - libXft-devel
     - libXinerama-devel
     - xkblayout-state
+    - libXrandr-devel
   tags:
     - desktop
     - X

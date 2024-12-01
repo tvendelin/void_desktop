@@ -1,6 +1,6 @@
 diff -pu dwm-6.5-orig/config.def.h dwm-6.5-mod/config.def.h
 --- dwm-6.5-orig/config.def.h	2024-03-19 12:24:52.000000000 +0100
-+++ dwm-6.5-mod/config.def.h	2024-10-27 13:05:56.777536240 +0100
++++ dwm-6.5-mod/config.def.h	2024-12-01 13:51:18.732908244 +0100
 @@ -1,5 +1,13 @@
  /* See LICENSE file for copyright and license details. */
  
@@ -28,12 +28,13 @@ diff -pu dwm-6.5-orig/config.def.h dwm-6.5-mod/config.def.h
  };
  
  /* layout(s) */
-@@ -58,10 +66,15 @@ static const Layout layouts[] = {
+@@ -58,11 +66,18 @@ static const Layout layouts[] = {
  /* commands */
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
  static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
 +static const char *termcmd[]  = { "urxvt", NULL };
++static const char *slock[]  = { "slock", NULL };
  
  static const Key keys[] = {
 +
@@ -43,11 +44,10 @@ diff -pu dwm-6.5-orig/config.def.h dwm-6.5-mod/config.def.h
 +    { 0,        XF86XK_AudioLowerVolume,        spawn,        { .v = volumedown }},
 +    { 0,               XF86XK_AudioMute,        spawn,        { .v = toggle }},
  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
++	{ Mod4Mask,                     XK_l,      spawn,          {.v = slock } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
-Only in dwm-6.5-mod: config.h
-Only in dwm-6.5-mod: drw.o
-Only in dwm-6.5-mod: dwm
+ 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 diff -pu dwm-6.5-orig/dwm.c dwm-6.5-mod/dwm.c
 --- dwm-6.5-orig/dwm.c	2024-03-19 12:24:52.000000000 +0100
 +++ dwm-6.5-mod/dwm.c	2024-10-27 13:16:40.302566682 +0100
@@ -88,5 +88,3 @@ diff -pu dwm-6.5-orig/dwm.c dwm-6.5-mod/dwm.c
  	updateclientlist();
  	arrange(m);
 Only in dwm-6.5-mod: dwm.c.orig
-Only in dwm-6.5-mod: dwm.o
-Only in dwm-6.5-mod: util.o

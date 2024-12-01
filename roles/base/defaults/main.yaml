@@ -1,7 +1,7 @@
 # ALSA (sound). You likely will need to edit this
 # cat /proc/asound/modules
 # See https://docs.voidlinux.org/config/media/alsa.html
-asound: 
+asound:
   ctl_card: 1
   pcm_card: 1
 
@@ -11,6 +11,10 @@ tars_dir: /tmp/tars
 
 suckless_build_root: /tmp/suckless
 suckless_software:
+  - name: 'slock'
+    version: '1.5'
+    url: 'https://dl.suckless.org/tools/'
+
   - name: 'slstatus'
     version: '1.0'
     url: "https://dl.suckless.org/tools"
@@ -27,3 +31,6 @@ suckless_software:
     version: '6.5'
     url: "https://dl.suckless.org/dwm"
 
+  - name: 'slstatus'
+    version: '1.0'
+    url: "https://dl.suckless.org/tools"

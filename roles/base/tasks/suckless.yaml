@@ -1,5 +1,13 @@
 ---
-- name: 'Make dirs'
+- name: 'Make temp dirs absent'
+  file:
+    path: "{{item}}"
+    state: absent
+  loop:
+    - '{{suckless_build_root}}'
+    - '{{tars_dir}}'
+
+- name: 'Make temp dirs'
   file:
     path: "{{item}}"
     state: directory
