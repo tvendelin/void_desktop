@@ -1,18 +1,9 @@
 ---
-- name: test
-  hosts: localhost
-  become: false
-  roles:
-    - user
-  vars:
-    dotfiles_git: 'https://github.com/tvendelin/dotfiles.git'
-
 - name: base_install
-  hosts: localhost
+  hosts: all
   become: true
   become_user: root
   become_method: sudo
-  gather_facts: no
   roles:
     - base
   tags: 
@@ -46,4 +37,13 @@
       - name: dwm
         version: '6.5'
         url: "https://dl.suckless.org/dwm"
+
+- name: user
+  hosts: all
+  become: false
+  gather_facts: no
+  roles:
+    - user
+  vars:
+    dotfiles_git: 'https://github.com/tvendelin/dotfiles.git'
 

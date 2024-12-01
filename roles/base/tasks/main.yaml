@@ -112,7 +112,6 @@
     - '.fonts'
 
 - import_tasks: suckless.yaml
-- import_tasks: dotfiles.yaml
 - import_tasks: fonts.yaml
 - import_tasks: key_bindings.yaml
 
@@ -145,10 +144,14 @@
   template:
     src: 'asound.conf.j2'
     dest: '/etc/asound.conf'
+  tags:
+    - alsa
 
 - name: 'Enable asound/alsa'
   file:
     src: '/etc/sv/alsa'
     path: '/var/service'
     state: link
+  tags:
+    - alsa
 
