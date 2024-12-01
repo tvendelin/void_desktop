@@ -66,6 +66,7 @@
     upgrade: yes
     name: '{{item}}'
   loop:
+    - glu
     - libopencv
     - xcb-util
     - xcb-util-wm
@@ -73,7 +74,6 @@
     - xcb-util-keysyms
     - xcb-util-renderutil
     - libxkbcommon-x11
-    - glu
   become: true
   tags:
     - davinci
