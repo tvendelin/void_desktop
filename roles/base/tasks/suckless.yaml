@@ -76,4 +76,3 @@
     target: install
     chdir: "{{suckless_build_root}}/{{item['name']}}-{{item['version']}}"
   loop: '{{suckless_software}}'
-  become: true

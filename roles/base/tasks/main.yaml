@@ -1,19 +1,16 @@
 ---
 - name: 'xbps upgrade'
   xbps: name=xbps upgrade=yes
-  become: true
 
 - name: 'xbps extra repos'
   xbps:
     name:
       - void-repo-nonfree
       - xtools
-  become: true
 
 - name: 'xbps upgrade'
   xbps:
     upgrade: yes
-  become: true
 
 - name: 'Install CLI utils'
   xbps:
@@ -44,7 +41,6 @@
     - libXft-devel
     - libXinerama-devel
     - xkblayout-state
-  become: true
   tags:
     - desktop
     - X
@@ -56,7 +52,6 @@
   loop:
     - nvidia
     - nvidia-opencl
-  become: true
   tags:
     - nvidia
     - never
@@ -75,7 +70,6 @@
     #    - xcb-util-keysyms
     #    - xcb-util-renderutil
     #    - libxkbcommon-x11
-  become: true
   tags:
     - davinci
     - never
@@ -101,7 +95,6 @@
     - 'virtualbox-ose'
     - 'transmission'
     - 'firefox'
-  become: true
 
 - name: 'Make dirs'
   file:
@@ -125,7 +118,6 @@
   copy:
     src: 'keyboard.conf'
     dest: '/etc/X11/xorg.conf.d/30-keyboard.conf'
-  become: true
 
 - name: 'udev rules'
   copy:
