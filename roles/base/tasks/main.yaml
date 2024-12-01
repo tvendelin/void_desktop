@@ -64,7 +64,7 @@
   xbps:
     state: latest
     upgrade: yes
-    name:
+    name: '{{item}}'
   loop:
     - libopencv
     - xcb-util

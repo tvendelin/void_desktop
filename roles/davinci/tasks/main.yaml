@@ -1,0 +1,12 @@
+---
+- name: 'Replace outdated libs'
+  file:
+    src: '/usr/lib/{{item}}'
+    dest: '/opt/resolve/libs/{{item}}'
+    state: link
+    force: true
+  loop:
+    - libglib-2.0.so.0
+    - libgio-2.0.so.0
+    - libgobject-2.0.so.0
+    - libgmodule-2.0.so.0
