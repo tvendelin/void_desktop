@@ -7,6 +7,8 @@
     name:
       - void-repo-nonfree
       - xtools
+  tags:
+    - packages
 
 - name: 'xbps upgrade'
   xbps:
@@ -29,6 +31,8 @@
     - unzip
     - base-devel
     - cups
+  tags:
+    - packages
 
 - name: 'Install X'
   xbps:
@@ -43,6 +47,7 @@
     - xkblayout-state
     - libXrandr-devel
   tags:
+    - packages
     - desktop
     - X
 
@@ -54,6 +59,7 @@
     - nvidia
     - nvidia-opencl
   tags:
+    - packages
     - nvidia
     - never
 
@@ -96,6 +102,8 @@
     - 'virtualbox-ose'
     - 'transmission'
     - 'firefox'
+  tags:
+    - packages
 
 - name: 'Make dirs'
   file:
