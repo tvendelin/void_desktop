@@ -151,7 +151,7 @@
 - name: 'Enable asound/alsa'
   file:
     src: '/etc/sv/alsa'
-    path: '/var/service'
+    path: '/var/service/'
     state: link
   tags:
     - alsa
